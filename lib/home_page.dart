@@ -4,14 +4,15 @@ import 'assets/theme.dart';
 import 'assets/animated_option_button.dart';
 import 'assets/helpbutton.dart';
 import 'assets/bottombar.dart';
-import 'camera_page.dart';
+//import 'camera_page.dart';
 import 'donation.dart'; // Import صفحة التبرعات
-import 'package:camera/camera.dart' as camera_pkg;
+//import 'package:camera/camera.dart' as camera_pkg;
 import 'package:flutter/services.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+//import 'package:flutter/foundation.dart' show kIsWeb;
 import 'flutter_unity_page.dart';
+import 'learning_categories_screen.dart';
 
-import 'Payment_Screen.dart';
+//import 'Payment_Screen.dart';
 import 'dart:html' as html;
 
 
@@ -97,7 +98,10 @@ class _HomePageState extends State<HomePage> {
         imagePath: 'lib/assets/icons/learning.png',
         backgroundColor: AppColors.primary,
         onTap: () {
-          // منطق التعليم (في حال تم إنشاؤه لاحقًا)
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const LearningCategoriesScreen()),
+          );
         },
         imageBuilder: (context) => ColorFiltered(
           colorFilter: const ColorFilter.mode(

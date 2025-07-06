@@ -2,6 +2,8 @@
 import 'dart:ui_web' as ui_web;
 import 'dart:html' as html;
 import 'package:flutter/material.dart';
+import 'assets/theme.dart';
+import 'assets/helpbutton.dart';
 
 class FlutterUnityPage extends StatefulWidget {
   const FlutterUnityPage({Key? key}) : super(key: key);
@@ -38,9 +40,32 @@ class _FlutterUnityPageState extends State<FlutterUnityPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Unity + Input')),
+      appBar: AppBar(
+        leading: BackButton(color: AppColors.primary),
+        title: const Text(
+          'نص إلى إشارة',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            fontSize: 22,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          HelpButton(
+            messages: [
+              'اكتب النص في الأسفل واضغط على زر تحويل ليتم ترجمته إلى لغة الإشارة في النافذة أعلاه.',
+            ],
+          ),
+        ],
+      ),
       body: Column(
         children: [
+          Expanded(
+            child: HtmlElementView(viewType: 'unity-iframe'),
+          ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
@@ -48,22 +73,38 @@ class _FlutterUnityPageState extends State<FlutterUnityPage> {
                 Expanded(
                   child: TextField(
                     controller: _controller,
-                    decoration: const InputDecoration(
-                      labelText: 'Enter word or letter',
+                    textAlign: TextAlign.right,
+                    style: TextStyle(fontSize: 18, color: AppColors.primary),
+                    decoration: InputDecoration(
+                      labelText: 'ادخل النص',
+                      labelStyle: TextStyle(color: AppColors.primary),
+                      hintText: 'ادخل النص هنا',
+                      hintStyle: TextStyle(color: Colors.grey),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
                     ),
                   ),
                 ),
+                const SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () {
                     _sendMessageToUnity(_controller.text);
                   },
-                  child: const Text('Send to Unity'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    elevation: 4,
+                  ),
+                  child: const Text(
+                    'تحويل',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),
-          ),
-          Expanded(
-            child: HtmlElementView(viewType: 'unity-iframe'),
           ),
         ],
       ),
