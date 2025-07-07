@@ -11,7 +11,7 @@ import webbrowser
 from pathlib import Path
 
 # Change to the video directory
-video_dir = Path("../sign-language-videos")
+video_dir = Path("lib/assets/video")
 os.chdir(video_dir)
 
 PORT = 8000
